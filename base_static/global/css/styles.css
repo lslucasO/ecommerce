@@ -56,6 +56,13 @@ nav{
 }
 
 
+
 div.row{
-    padding: 3rem;
+    padding: 2rem;
+}
+
+/* Search Bar outline */
+
+.form-control{
+    border: 1px solid gray
 }

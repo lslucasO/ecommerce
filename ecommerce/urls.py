@@ -6,7 +6,7 @@ from django.conf import settings
 
 from . import views
 
-app_name = 'home'
+app_name = 'ecommerce'
 
 urlpatterns = [
     path('', views.home, name='home')
