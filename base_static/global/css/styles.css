@@ -56,11 +56,13 @@ nav{
 }
 
 
-
-div.row{
-    padding: 2rem;
+.g-4, .gx-4 {
+    --bs-gutter-x: 0rem;
 }
 
+.card-container{
+    padding: 1.75rem;
+}
 /* Search Bar outline */
 
 .form-control{
