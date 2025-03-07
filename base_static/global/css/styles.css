@@ -68,3 +68,7 @@ nav{
 .form-control{
     border: 1px solid gray
 }
+
+.card-title{
+    padding-bottom: 1rem;
+}

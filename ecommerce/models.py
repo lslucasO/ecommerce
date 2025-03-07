@@ -12,7 +12,7 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=165)
     price = models.FloatField()
-    description = models.TextField(max_length=600)
+    description = models.TextField(max_length=1000)
     stock = models.BooleanField(default=False)
     slug = models.SlugField(unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
