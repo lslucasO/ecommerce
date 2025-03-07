@@ -69,6 +69,10 @@ nav{
     border: 1px solid gray
 }
 
-.card-title{
+.card-title, .card-price{
     padding-bottom: 1rem;
+}
+
+.card-price{
+    font-size: 2rem;
 }

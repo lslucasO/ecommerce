@@ -4,11 +4,12 @@
   <div class="row row-cols-1 row-cols-md-5 g-4">
       {% for product in products %}
       <div class="col">
-        <div class="card" style="width: 20rem;">
+        <div class="card border-dark h-100" style="width: 20rem;">
           <img src="{{ product.cover.url }}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">{{ product.name }}</h5>
-            <button type="button" class="btn btn-success">Buy</button>
+            <h6 class="card-price">R$ {{ product.price }} </h6>
+            <button type="button" class="btn btn-success">Visualize</button>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Add to Cart
             </button>
