@@ -27,9 +27,22 @@
                 </div>
             </div>
             
-              <p class="card-text"></p>
-              <p class="card-text"><small class="text-body-secondary">Last update: {{ product.updated_at }}</small></p>
-              <button type="button" class="btn btn-success"><a class="link">Buy</a></button>
+              <p style="padding-top: 1rem;" class="card-text"><small class="text-body-secondary">Last update: {{ product.updated_at }}</small></p>
+
+              {% if not request.user.is_authenticated %}
+
+                <div class="alert alert-warning" role="alert">
+                  You can not buy a product without being logged in.
+                </div>
+
+              {% else %}
+
+                <div style="padding-bottom: 1rem;">
+                  <button type="button" style="width: 5rem;" class="btn btn-success"><a class="link">Buy</a></button>
+                </div>
+
+              {% endif %}
+
             </div>
           </div>
         </div>
