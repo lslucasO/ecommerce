@@ -9,7 +9,9 @@ from . import views
 app_name = 'ecommerce'
 
 urlpatterns = [
-    path('', views.home, name='home')
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('', views.home, name='home'),
+    path('product/<int:id>/', views.product, name='product'),
+] 
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -76,3 +76,12 @@ nav{
 .card-price{
     font-size: 2rem;
 }
+
+.link {
+    color: white;
+    text-decoration: none;
+}
+
+.container-fluid{
+    padding-left: 1rem;
+}
