@@ -1,5 +1,14 @@
 from django.shortcuts import render
-from users.forms import LoginForm
+from users.forms import LoginForm, RegisterForm
+
+
+def register_view(request):
+    form = RegisterForm()
+    
+    return render(request, 'users/pages/register.html', {
+        'title': 'Register',
+        'form': form,
+    })
 
 
 def login_view(request):
@@ -9,3 +18,4 @@ def login_view(request):
         'title': 'Login',
         'form': form,
     })
+
