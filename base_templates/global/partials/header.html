@@ -6,7 +6,21 @@
     </button>
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Hello {{ request.user.username }} 😉</h5>
+
+        {% if request.user.is_authenticated %}
+          {% if request.user.account.profile_img %}
+            <img style="width: 60px; height: 40px; border-radius: 50%; padding-right: 0.5rem;" src="{{ request.user.account.profile_img.url }}">
+          {% endif %}
+          
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+            {{ request.user.username }} 
+          </h5>
+        {% else %}
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+            Hello User!
+          </h5>
+        {% endif %}
+        
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
@@ -15,7 +29,7 @@
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="{% url 'ecommerce:home' %}">Home</a>
           </li>
-
+          
           {% if not request.user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link active" href="{% url 'users:login' %}">Login</a>
@@ -23,11 +37,17 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'users:register' %}">Create Account</a>
             </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="#">My Cart</a>
+            </li>
+            <li  style="padding-top: 0.5rem;" class="nav-item">
+              <form action="{% url 'users:logout' %}" method="POST">
+                {% csrf_token %}
+                <button  type="submit"><a style="text-decoration: None; height: 20px; ">Logout</a></button>
+              </form>
+            </li>
           {% endif %}
-
-          <li class="nav-item">
-            <a class="nav-link" href="#">My Cart</a>
-          </li>
           
       </div>
     </div>

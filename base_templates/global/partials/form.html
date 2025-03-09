@@ -23,7 +23,7 @@
         {% if not request.user.is_authenticated %}
           <div style="padding: 1rem;">
             <div class="alert alert-warning" role="alert">
-              Doesn't have a account? create <a href="">here</a>
+              Doesn't have a account? create <a href="{% url 'users:register' %}">here</a>
             </div>
           </div>
         {% endif %}

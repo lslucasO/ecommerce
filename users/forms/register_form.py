@@ -43,6 +43,9 @@ class RegisterForm(forms.ModelForm):
         label='E-mail',
         help_text='The e-mail must be valid.',
     )
+    
+    profile_img = forms.ImageField(required=False)
+    
     password = forms.CharField(
         widget=forms.PasswordInput(),
         error_messages={
@@ -64,7 +67,7 @@ class RegisterForm(forms.ModelForm):
         },
     )
     
-    profile_img = forms.ImageField(required=False)
+    
 
     class Meta:
         model = User

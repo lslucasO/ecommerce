@@ -3,6 +3,9 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from users.forms import LoginForm, RegisterForm
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 from users.models import Account
 
@@ -12,7 +15,7 @@ def register_view(request):
     form = RegisterForm(register_form_data)
     
     return render(request, 'users/pages/register.html', {
-        'title': 'Register',
+        'title': 'Create Account',
         'form': form,
         'form_action': reverse('users:register_create')
     })
@@ -43,10 +46,11 @@ def register_create(request):
         
         del(request.session['register_form_data'])
         return redirect(reverse('users:login'))
-    
-    print('inválido')
+
+
     return redirect('users:register')
         
+   
         
 def login_view(request):
     form = LoginForm()
@@ -54,5 +58,37 @@ def login_view(request):
     return render(request, 'users/pages/login.html', {
         'title': 'Login',
         'form': form,
+        'form_action': reverse('users:login_create')
     })
 
+
+
+def login_create(request):
+    form = LoginForm(request.POST)
+    
+    if form.is_valid():
+        authenticated_user = authenticate(
+            username=form.cleaned_data.get('username', ''),
+            password=form.cleaned_data.get('password', '')
+        )
+        
+        if authenticated_user is not None:
+            messages.success(request, 'Success, you are logged in.')
+            login(request, authenticated_user)
+        else:
+            messages.error(request, 'Invalid credentials')    
+    else:
+        messages.error(request, 'Invalid username or password')
+        
+    return redirect(reverse('ecommerce:home'))
+
+
+@login_required(login_url='users:login', redirect_field_name='next')
+def logout_view(request):
+    if request.user.is_authenticated:
+        logout(request)
+        messages.success(request, 'Logged out successfully')
+    else:
+        messages.error(request, 'You are not logged in')
+    
+    return redirect(reverse('ecommerce:home'))
