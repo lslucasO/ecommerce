@@ -64,7 +64,7 @@ class RegisterForm(forms.ModelForm):
         },
     )
     
-    profile_image = forms.ImageField()
+    profile_img = forms.ImageField(required=False)
 
     class Meta:
         model = User
@@ -74,6 +74,7 @@ class RegisterForm(forms.ModelForm):
             'username',
             'email',
             'password',
+            'profile_img',
     ]
 
     def clean_email(self):
