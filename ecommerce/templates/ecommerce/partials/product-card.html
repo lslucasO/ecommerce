@@ -3,21 +3,49 @@
 <div class="card-container">
   <div class="row row-cols-1 row-cols-md-5 g-4">
       {% for product in products %}
-      <div class="col">
-      <div class="card border border-secondary-subtle h-100" style="width: 20rem;">
-          <a href="{% url 'ecommerce:product' product.id %}" class="img-link"><img src="{{ product.cover.url }}" class="card-img-top" alt="..."></a>
-          <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
-            <h6 class="card-price">R$ {{ product.price }} </h6>
-            <button type="button" class="btn btn-success"><a class="link" href="{% url 'ecommerce:product' product.id %}">Visualize</a></button>
+        <div class="col">
+        <div class="card border border-secondary-subtle h-100" style="width: 20rem;">
+            <a href="{% url 'ecommerce:product' product.id %}" class="img-link"><img src="{{ product.cover.url }}" class="card-img-top" alt="..."></a>
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <h6 class="card-price">R$ {{ product.price }} </h6>
+              <button type="button" class="btn btn-success"><a class="link" href="{% url 'ecommerce:product' product.id %}">Visualize</a></button>
 
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cartModal">
+              
+              <button value="{{ product.id }}" type="submit" class="btn btn-primary add-cart-btn" data-bs-toggle="modal" data-bs-target="#cartModal">
               Add to Cart
-            </button>
-            
+              </button>
+
+            </div>
           </div>
         </div>
-      </div>
       {% endfor %}
   </div>
 </div>
+
+<script>
+  $(document).on('click', '.add-cart-btn', function(e){
+    e.preventDefault();
+    
+    // Captura o valor do botão específico que foi clicado
+    var productId = $(this).val();
+    
+    $.ajax({
+        type: 'POST',
+        url: '{% url "cart:cart_add" %}',
+        data: {
+            product_id: productId, // Usa o valor capturado
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        },
+
+        success: function(json){
+            console.log(json);
+        },
+
+        error: function(xhr, errmsg, err){
+            console.log(errmsg); // Exibe mensagens de erro no console
+        }
+    });
+  });
+</script>

@@ -39,7 +39,7 @@
             </li>
           {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'ecommerce:cart' %}">My Cart</a>
+              <a class="nav-link" href="{% url 'cart:cart' %}">My Cart</a>
             </li>
             <li  style="padding-top: 0.5rem;" class="nav-item">
               <form action="{% url 'users:logout' %}" method="POST">
