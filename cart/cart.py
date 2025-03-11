@@ -9,7 +9,7 @@ class Cart:
        
         # If the user is new, no sessino key, create one
         if 'session_key' not in request.session:
-            print('oi')
+
             cart = self.session['session_key'] = {}
         
         self.cart = cart
@@ -39,3 +39,6 @@ class Cart:
         )
         
         return products
+    
+    def __len__(self):
+        return len(self.cart)

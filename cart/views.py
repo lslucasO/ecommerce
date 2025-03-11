@@ -30,7 +30,7 @@ def cart_add(request):
     
     # Check the product_id in the value based on the script.js
     product_id = int(request.POST.get('product_id'))
-    print(f'Estou na view {product_id}')
+
     # Check for product in database
     product = get_object_or_404(
         Product,
@@ -41,9 +41,12 @@ def cart_add(request):
     # Save to session
     cart.add(product=product)
     
+    # Get cart quantity
+    cart_quantity = cart.__len__()
+    print(cart_quantity)
     # Return response
     response = JsonResponse({
-        'Product Name: ': product.name
+        'qty: ': cart_quantity
     })
     
     return response

@@ -23,6 +23,7 @@
   </div>
 </div>
 
+
 <script>
   $(document).on('click', '.add-cart-btn', function(e){
     e.preventDefault();
@@ -40,12 +41,20 @@
         },
 
         success: function(json){
-            console.log(json);
+            //console.log(json);
+            document.getElementById("cart-quantity").textContent = json.qty;
         },
 
         error: function(xhr, errmsg, err){
             console.log(errmsg); // Exibe mensagens de erro no console
         }
     });
-  });
+    const cartQuantityElement = document.getElementById("cart-quantity");
+    if (cartQuantityElement) {
+        cartQuantityElement.textContent = json.qty;
+        console.log('achei')
+    } else {
+        console.error("Elemento 'cart-quantity' não encontrado.");
+    }
+  })
 </script>
