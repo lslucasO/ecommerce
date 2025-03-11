@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Q
 from .models import Product
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -39,3 +40,9 @@ def product(request, id):
         'product': product
     })
 
+
+@login_required(login_url='users:login', redirect_field_name='next')
+def cart(request):
+    return render(request, 'ecommerce/pages/cart.html', {
+        'title': 'Cart'
+    })
