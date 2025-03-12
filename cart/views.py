@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from ecommerce.models import Product
-from .cart import Cart
+from utils.cart import Cart
 
 
 @login_required(login_url='users:login', redirect_field_name='next')
@@ -14,7 +14,7 @@ def cart_summary(request):
     quantities = cart.get_quants
 
 
-    return render(request, 'ecommerce/pages/cart.html', {
+    return render(request, 'cart/pages/cart.html', {
         'title': 'Cart',
         'cart_products': cart_products,
         'quantities': quantities,
