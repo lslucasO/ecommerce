@@ -10,12 +10,12 @@
               <h5 class="card-title">{{ product.name }}</h5>
               <h6 class="card-price">R$ {{ product.price }} </h6>
               <button type="button" class="btn btn-success"><a class="link" href="{% url 'ecommerce:product' product.id %}">Visualize</a></button>
-
-              
-              
-
             </div>
           </div>
+        </div>
+      {% empty %}
+        <div class="container">
+          <h3 style="text-align: center">No products found 😥</h3>
         </div>
       {% endfor %}
   </div>
