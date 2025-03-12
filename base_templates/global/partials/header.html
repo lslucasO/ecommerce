@@ -52,12 +52,18 @@
                 </span></a>
               </div>
             </li>
-            <li  style="padding-top: 0.5rem;" class="nav-item">
+
+            <li style="padding-top: 0.5rem;" class="nav-item">
+
               <form action="{% url 'users:logout' %}" method="POST">
                 {% csrf_token %}
-                <button  type="submit"><a style="text-decoration: None; height: 20px; ">Logout</a></button>
+                <button style="height: fit-content;" type="submit" class="btn btn-secondary">
+                  Logout
+                </button>
+
               </form>
             </li>
+
           {% endif %}
          
       </div>
