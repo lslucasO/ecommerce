@@ -150,3 +150,7 @@ nav{
   top:-10px;
   opacity:0.9;
 }
+
+.g-5, .gx-5 {
+   --bs-gutter-x: 1rem; 
+}

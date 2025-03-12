@@ -38,8 +38,9 @@
                       Update
                     </button>
 
-                                         
-                    
+                    <button type="button" data-index="{{ cart_product.id }}" class="btn btn-danger delete-product" data-bs-toggle="modal" data-bs-target="#deleteCartModal">
+                      Delete
+                    </button>
 
                   </div>
                 </div>
@@ -73,9 +74,12 @@
       </div>
     </div>
   </div>
-</div>                                  
+</div> 
+
+
 
 <script>
+  // Update Cart
   $(document).on('click', '.update-cart', function(e){
     e.preventDefault();
     
@@ -103,5 +107,34 @@
         }
     });
 
-});
+  });
+
+    // Delete Product
+    $(document).on('click', '.delete-product', function(e){
+      e.preventDefault();
+      
+    
+      //var productid = $(this).data('index');
+      
+      $.ajax({
+          type: 'POST',
+          url: '{% url "cart:cart_delete" %}',
+          data: {
+              product_id: $(this).data('index'), // Usa o valor capturado
+              csrfmiddlewaretoken: '{{ csrf_token }}',
+              action: 'post'
+          },
+  
+          success: function(json){
+              //console.log(json);
+              //document.getElementById("cart-quantity").textContent = json.qty;
+              location.reload()
+          },
+  
+          error: function(xhr, errmsg, err){
+              console.log(errmsg); // Exibe mensagens de erro no console
+          }
+      });
+  
+  });
 </script>

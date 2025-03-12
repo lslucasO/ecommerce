@@ -74,3 +74,21 @@ def cart_update(request):
     })
     
     return response
+
+
+def cart_delete(request):
+    if not request.POST:
+        raise Http404()
+    
+    cart = Cart(request)
+    
+    # Get stuff
+    product_id = int(request.POST.get('product_id'))
+    # Call delete Function in Cart
+    cart.delete(product=product_id)
+    
+    response = JsonResponse({
+        'product': product_id
+    })
+    
+    return response
