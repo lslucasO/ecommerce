@@ -36,10 +36,22 @@
                 </div>
 
               {% else %}
-
-                <div style="padding-bottom: 1rem;">
-                  <button type="button" style="width: 5rem;" class="btn btn-success"><a class="link">Buy</a></button>
+                
+              
+                <div style="padding-bottom: 1rem; display: flex; gap: 2rem;">
+                  <button value="{{ product.id }}" class="btn btn-primary add-cart-btn" data-bs-toggle="modal" data-bs-target="#cartModal">
+                    Add to Cart
+                  </button>
+  
+                  <select id="qty-cart" style="max-width: 140px" class="form-select" >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
                 </div>
+              
 
               {% endif %}
 
@@ -48,3 +60,38 @@
         </div>
     </div>
 </div>
+
+
+<script>
+  $(document).on('click', '.add-cart-btn', function(e){
+    e.preventDefault();
+    
+    // Captura o valor do botão específico que foi clicado
+    var productId = $(this).val();
+    
+    // Captura a quantidade selecionada no dropdown
+    var productQty = $('#qty-cart').val(); // Usando .val() para pegar o valor selecionado
+    
+    $.ajax({
+        type: 'POST',
+        url: '{% url "cart:cart_add" %}',
+        data: {
+            product_id: productId, // Usa o valor capturado
+            product_qty: productQty, // Usa a quantidade capturada
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        },
+
+        success: function(json){
+            //console.log(json);
+            document.getElementById("cart-quantity").textContent = json.qty;
+        },
+
+        error: function(xhr, errmsg, err){
+            console.log(errmsg); // Exibe mensagens de erro no console
+        }
+    });
+
+});
+</script>
+

@@ -11,11 +11,13 @@ def cart_summary(request):
     # Get the cart
     cart = Cart(request)
     cart_products = cart.get_products
+    quantities = cart.get_quants
 
 
     return render(request, 'ecommerce/pages/cart.html', {
         'title': 'Cart',
-        'cart_products': cart_products
+        'cart_products': cart_products,
+        'quantities': quantities,
     })
 
 
@@ -30,7 +32,9 @@ def cart_add(request):
     
     # Check the product_id in the value based on the script.js
     product_id = int(request.POST.get('product_id'))
-
+    product_qty = int(request.POST.get('product_qty'))
+    
+    
     # Check for product in database
     product = get_object_or_404(
         Product,
@@ -39,14 +43,34 @@ def cart_add(request):
     )
     
     # Save to session
-    cart.add(product=product)
+    cart.add(product=product, quantity=product_qty)
     
     # Get cart quantity
     cart_quantity = cart.__len__()
-    print(cart_quantity)
+    
     # Return response
     response = JsonResponse({
-        'qty: ': cart_quantity
+        'qty:': cart_quantity
+    })
+    
+    return response
+
+
+@login_required(login_url='users:login', redirect_field_name='next')
+def cart_update(request):
+    if not request.POST:
+        raise Http404()
+    
+    cart = Cart(request)
+    
+    # Get stuff
+    product_id = int(request.POST.get('product_id'))
+    product_qty = int(request.POST.get('product_qty'))
+    
+    cart.update(product=product_id, quantity=product_qty)
+    
+    response = JsonResponse({
+        'qty': product_qty
     })
     
     return response

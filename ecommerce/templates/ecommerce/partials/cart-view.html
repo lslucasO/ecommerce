@@ -16,7 +16,29 @@
               <li class="list-group-item d-flex justify-content-between lh-sm">
                 <div>
                   <h6 class="my-0">{{ cart_product.name }}</h6>
-                  <small class="text-body-secondary">Brief description</small>
+                  
+                  <div style="padding-top: 1rem; display: flex; gap: 1rem" class="select-quantity">
+
+                    <select style="max-width: 60px;" class="form-select" id="select{{ cart_product.id }}">
+                    
+                      {% for key, value in quantities.items %}
+                        {% if key == cart_product.id|slugify %}
+                          <option selected>{{ value }}</option>
+                        {% endif %}
+                      {% endfor %}
+                      
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+
+                    <button type="button" data-index="{{ cart_product.id }}" class="btn btn-secondary update-cart">
+                      Update
+                    </button>
+
+                  </div>
                 </div>
                 <span class="text-body-secondary">R$ {{ cart_product.price }}</span>
               </li>
@@ -34,3 +56,33 @@
 </div>
 
 
+<script>
+  $(document).on('click', '.update-cart', function(e){
+    e.preventDefault();
+    
+    // Captura o valor do botão específico que foi clicado
+    var productid = $(this).data('index');
+    
+    $.ajax({
+        type: 'POST',
+        url: '{% url "cart:cart_update" %}',
+        data: {
+            product_id: $(this).data('index'), // Usa o valor capturado
+            product_qty: $('#select' + productid).val(), // Usa a quantidade capturada
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        },
+
+        success: function(json){
+            //console.log(json);
+            //document.getElementById("cart-quantity").textContent = json.qty;
+            location.reload();
+        },
+
+        error: function(xhr, errmsg, err){
+            console.log(errmsg); // Exibe mensagens de erro no console
+        }
+    });
+
+});
+</script>
