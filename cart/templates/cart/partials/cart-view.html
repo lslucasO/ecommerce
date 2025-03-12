@@ -50,33 +50,18 @@
               <p class="fw-bold" style="padding-bottom: 1rem;" >Its empty! 😥</p>
             {% endfor %}
             
-            <li class="list-group-item d-flex justify-content-between">
-              <span>Total (USD)</span>
-              <strong>$0</strong>
-            </li>
+            {% if cart_products|length != 0 %}
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Total (USD)</span>
+                <strong>R$ {{ totals|floatformat:2 }}</strong>
+              </li>
+            {% endif %}
+           
           </ul>
 
       </div>
 </div>
-
-<div class="modal fade" id="updateCartModal" tabindex="-1" aria-labelledby="updateCartModal" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="updateCartModal">Product Updated ✅</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        The quantity of products was changed.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div> 
-
-
+ 
 
 <script>
   // Update Cart
@@ -99,7 +84,7 @@
         success: function(json){
             //console.log(json);
             //document.getElementById("cart-quantity").textContent = json.qty;
-            //location.reload();
+            location.reload();
         },
 
         error: function(xhr, errmsg, err){
