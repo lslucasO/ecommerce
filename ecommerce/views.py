@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
 from .models import Product
 from reviews.models import Review
-
+from reviews.forms import ReviewForm
 
 
 def home(request):
@@ -31,6 +31,8 @@ def search(request):
 
 
 def product(request, id):
+    form = ReviewForm()
+    
     product = Product.objects.get(
         pk=id,
         stock=True
@@ -40,12 +42,11 @@ def product(request, id):
         product=product
     )
     
-    print(reviews)
-    
     return render(request, 'ecommerce/pages/product.html', {
         'title': f'{product.name}',
         'product': product,
-        'reviews': reviews
+        'reviews': reviews,
+        'form': form
     })
 
 

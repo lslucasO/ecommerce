@@ -15,7 +15,9 @@
 
         {% if request.user.is_authenticated %}
           {% if request.user.account.profile_img %}
-            <img style="width: 60px; height: 40px; border-radius: 50%; padding-right: 0.5rem;" src="{{ request.user.account.profile_img.url }}">
+            <div style="padding-right: 1rem;">
+              <img style="width: 40px; height: 40px; border-radius: 50%;" src="{{ request.user.account.profile_img.url }}">
+            </div>
           {% endif %}
           
           <h5 class="offcanvas-title" id="offcanvasNavbarLabel">

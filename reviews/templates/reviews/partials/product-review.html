@@ -1,0 +1,65 @@
+{% load static %}
+<div class="container" style="padding-bottom: 1rem;">
+    <div class="card">
+        <div class="card-header">
+            Customer Review
+        </div>
+        {% include 'reviews/partials/create-review.html' %}
+        
+        <div class="container" style="padding-top: 1rem;">
+            {% for review in reviews %}
+
+                <div class="card w-90 mb-3">
+                    <div class="card-body">
+                            <div style="display: flex; padding-bottom: 1rem;">
+                            {% if review.user.account.profile_img.url %}
+                                <div style="padding-right: 1rem;">
+                                    <img style="width: 40px; height: 40px; border-radius: 50%;" src="{{ review.user.account.profile_img.url }}">
+                              </div>
+                            {% endif %}
+                                <h5  style="text-align: center;"  class="card-title">{{ review.user.username }}</h5>
+                            </div>        
+                        <h5 class="card-title">{{ review.topic }}</h5>
+                        <p class="card-text">{{ review.text }}</p>
+
+                        {% if review.rating >= 3 %}
+
+                            <div style="max-width: 250px; display: flex; gap: 2rem; ">
+                    
+                                <span><img style="max-width: 20px;" src="{% static 'ecommerce/img/like.png' %}" alt=""></span>
+                        
+                                <span><img style="max-width: 20px;" src="{% static 'ecommerce/img/star.png' %}" alt=""></span>
+
+                                <span>
+                                    <p style="font-size: 1.25rem" class="fw-bold">{{ review.rating }}</p>
+                                </span>
+                                
+                            </div>
+
+                        {% else %}
+
+                            <div style="max-width: 250px; display: flex; gap: 2rem; ">
+                           
+                                <span><img style="max-width: 20px;" src="{% static 'ecommerce/img/dislike.png' %}" alt=""></span>
+                           
+                                <span><img style="max-width: 20px;" src="{% static 'ecommerce/img/star.png' %}" alt=""></span>
+        
+                            
+                                <span>
+                                    <p style="font-size: 1.25rem" class="fw-bold">{{ review.rating }}</p>
+                                </span>
+                                
+        
+                            </div>
+                                
+                        
+                        {% endif %}
+        
+                    </div>
+                </div>
+                
+            {% endfor %}
+        </div>
+        
+    </div>
+</div>
