@@ -35,7 +35,7 @@ def product(request, id):
         stock=True
     )
     
-    return render(request, 'ecommerce/pages/product-view.html', {
+    return render(request, 'ecommerce/pages/product.html', {
         'title': f'{product.name}',
         'product': product
     })
