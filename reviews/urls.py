@@ -1,8 +1,8 @@
 from django.urls import include, path
 from . import views
 
-app_name = 'cart'
+app_name = 'reviews'
 
 urlpatterns = [
-    path('', views.cart_summary, name='cart'),
+    path('', views.create, name='create'),
 ] 
