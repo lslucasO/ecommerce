@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
 from .models import Product
+from reviews.models import Review
 
 
 
@@ -35,9 +36,16 @@ def product(request, id):
         stock=True
     )
     
+    reviews = Review.objects.filter(
+        product=product
+    )
+    
+    print(reviews)
+    
     return render(request, 'ecommerce/pages/product.html', {
         'title': f'{product.name}',
-        'product': product
+        'product': product,
+        'reviews': reviews
     })
 
 
