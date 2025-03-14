@@ -91,7 +91,12 @@
 
                     </div>
                 </div>
-                
+            {% empty %}
+                <div class="card w-75 mb-3">
+                    <div class="card-body">
+                    <h5 class="card-title">There's no reviews yet.</h5>
+                    </div>
+                </div>
             {% endfor %}
         </div>
         
