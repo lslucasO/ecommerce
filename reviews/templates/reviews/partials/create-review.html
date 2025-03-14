@@ -1,8 +1,10 @@
 {% load crispy_forms_tags %}
 
-<div style="padding-top: 1rem" class="container">
-    <button style="max-width: 200px;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Create review</button>
-</div>
+{% if request.user.is_authenticated %}
+  <div style="padding-top: 1rem" class="container">
+      <button style="max-width: 200px;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Create review</button>
+  </div>
+{% endif %}
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">

@@ -12,3 +12,17 @@ class ReviewForm(forms.ModelForm):
             'rating',             
         ]
     
+    choices = [
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+    ]
+    
+    rating = forms.ChoiceField(
+        choices=choices,
+        widget=forms.Select(attrs={
+            'class': 'form-control'
+        })
+    )

@@ -5,6 +5,7 @@ from django.contrib import messages
 from ecommerce.models import Product  # Import the Product model
 from django.contrib.auth.models import User  # Import the User model
 
+
 def create(request):
     if not request.POST:
         raise Http404()
@@ -32,3 +33,7 @@ def create(request):
         messages.error(request, 'Something went wrong.')
         
     return redirect('ecommerce:home')
+
+
+def delete(request):
+    ...
