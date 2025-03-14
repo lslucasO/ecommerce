@@ -40,7 +40,7 @@ def product(request, id):
     
     reviews = Review.objects.filter(
         product=product
-    )
+    ).order_by('-id')
     
     return render(request, 'ecommerce/pages/product.html', {
         'title': f'{product.name}',

@@ -1,11 +1,15 @@
 from django.http import Http404
 from django.shortcuts import redirect, render, get_object_or_404
+
+from reviews.models import Review
 from .forms import ReviewForm
 from django.contrib import messages
 from ecommerce.models import Product  # Import the Product model
 from django.contrib.auth.models import User  # Import the User model
+from django.contrib.auth.decorators import login_required
 
 
+@login_required(login_url='users:login', redirect_field_name='next')
 def create(request):
     if not request.POST:
         raise Http404()
@@ -35,5 +39,20 @@ def create(request):
     return redirect('ecommerce:home')
 
 
+@login_required(login_url='users:login', redirect_field_name='next')
 def delete(request):
-    ...
+    if not request.POST:
+        raise Http404()
+    
+    review_id = request.POST.get('review_id')
+    print(review_id)
+    review = get_object_or_404(
+        Review,
+        pk=review_id
+    )
+    
+    review.delete()
+    
+    messages.success(request, 'Your review was deleted.')
+    
+    return redirect('ecommerce:home')
