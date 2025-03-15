@@ -37,7 +37,7 @@ def create(request):
     else:
         messages.error(request, 'Something went wrong.')
         
-    return redirect('ecommerce:home')
+    return redirect(reverse('users:profile', args=[request.user.id]))
 
 
 @login_required(login_url='users:login', redirect_field_name='next')
@@ -57,7 +57,7 @@ def delete(request):
     
     messages.success(request, 'Your review was deleted.')
     
-    return redirect('ecommerce:home')
+    return redirect(reverse('users:profile', args=[request.user.id]))
 
 
 @login_required(login_url='users:login', redirect_field_name='next')
@@ -82,4 +82,4 @@ def edit(request):
     else:
         messages.error(request, 'Something went wrong.')
             
-    return redirect('ecommerce:home')
+    return redirect(reverse('users:profile', args=[request.user.id]))
