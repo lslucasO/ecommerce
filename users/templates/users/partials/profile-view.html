@@ -42,13 +42,11 @@
 
                     <div class="row" id="all-projects">
                         <div class="col-md-6" id="project-items-1">
-
-
                             
                             {% for review in reviews %}
 
                                 <!-- Modal de confirmação de exclusão -->
-                                <div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="deleteReviewModal{{ review.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -60,8 +58,9 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <form id="deleteReviewForm" action="{% url 'reviews:delete' %}" method="POST">
+                                                <form id="deleteReviewForm{{ review.id }}" action="{% url 'reviews:delete' %}" method="POST">
                                                     {% csrf_token %}
+                                                  
                                                     <input type="hidden" name="review_id" value="{{ review.id }}">  
                                                     <button type="submit" class="btn btn-danger">Delete!</button>
                                                 </form>
@@ -70,38 +69,38 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Modal de confirmação de exclusão -->
-                                <div class="modal fade" id="editReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <!-- Modal de confirmação de edição -->
+                                <div class="modal fade" id="editReviewModal{{ review.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
-                                      <div class="modal-content">
+                                    <div class="modal-content">
                                         <div class="modal-header">
-                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit your Review</h1>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit your Review</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                          <form method="POST" action="{% url 'reviews:edit' %}">
+                                        <form method="POST" action="{% url 'reviews:edit' %}">
                                             {% csrf_token %}
-                                  
-                                            <!-- Hidden input for product_id -->
+                                    
+                                            <!-- Hidden input for review_id -->
                                             <input type="hidden" name="review_id" value="{{ review.id }}">
-                                  
+                                
                                             {{ form|crispy }}
                                             
                                             {% if form.errors %}
-                                              <div class="errors">
+                                            <div class="errors">
                                                 {{ form.errors }}
-                                              </div>
-                                            {% endif %}
-                                  
-                                            <div class="modal-footer">
-                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                              <button type="submit" class="btn btn-primary">Edit</button>
                                             </div>
-                                  
-                                          </form>
+                                            {% endif %}
+                                
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Edit</button>
+                                            </div>
+                                
+                                        </form>
                                         </div>
                                         
-                                      </div>
+                                    </div>
                                     </div>
                                 </div>
 
@@ -113,6 +112,7 @@
                                                     <h6 class="mb-0 text-muted">
                                                         <i class="mdi mdi-circle-medium text-danger fs-3 align-middle"></i>
                                                         <span class="team-date">{{ review.created_at }}</span>
+                                                        
                                                     </h6>
                                                 </div>
                                             </div>
@@ -123,9 +123,9 @@
                                                     </a>
 
                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                        <a style="cursor: pointer;" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#editReviewModal">Edit</a>
+                                                        <a style="cursor: pointer;" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#editReviewModal{{ review.id }}">Edit</a>
 
-                                                        <a style="cursor: pointer;" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteReviewModal">Delete</a>
+                                                        <a style="cursor: pointer;" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteReviewModal{{ review.id }}">Delete</a>
                                                     </div>
                                                 </div>
                                             {% endif %}
