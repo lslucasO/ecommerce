@@ -1,5 +1,6 @@
 from django.http import Http404
 from django.shortcuts import redirect, render, get_object_or_404
+from django.urls import reverse
 
 from reviews.models import Review
 from .forms import ReviewForm
@@ -45,7 +46,8 @@ def delete(request):
         raise Http404()
     
     review_id = request.POST.get('review_id')
-    print(review_id)
+    
+    
     review = get_object_or_404(
         Review,
         pk=review_id
@@ -55,4 +57,29 @@ def delete(request):
     
     messages.success(request, 'Your review was deleted.')
     
+    return redirect('ecommerce:home')
+
+
+@login_required(login_url='users:login', redirect_field_name='next')
+def edit(request):
+    if not request.POST:
+        raise Http404()
+    
+    
+    review_id = request.POST.get('review_id')
+    
+    review = get_object_or_404(
+        Review,
+        pk=review_id
+    )
+    
+    form = ReviewForm(request.POST, instance=review)
+    
+    if form.is_valid():
+        form.save()
+        
+        messages.success(request, 'Your review was edited.')
+    else:
+        messages.error(request, 'Something went wrong.')
+            
     return redirect('ecommerce:home')

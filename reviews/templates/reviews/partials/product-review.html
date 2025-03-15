@@ -8,16 +8,19 @@
         
         <div class="container" style="padding-top: 1rem;">
             {% for review in reviews %}
-
+                
                 <div class="card w-90 mb-3">
                     <div class="card-body">
                             <div style="display: flex; padding-bottom: 1rem;">
+                                
                             {% if review.user.account.profile_img.url %}
                                 <div style="padding-right: 1rem;">
                                     <img style="width: 40px; height: 40px; border-radius: 50%;" src="{{ review.user.account.profile_img.url }}">
                               </div>
                             {% endif %}
-                                <h5  style="text-align: center;"  class="card-title">{{ review.user.username }}</h5>
+                                <h5 style="text-align: center;"  class="card-title">
+                                    <a style="text-decoration: none;" href="{% url 'users:profile' review.user.id %}">{{ review.user.username }}</a>
+                                </h5>
                             </div>        
                         <h5 class="card-title">{{ review.topic }}</h5>
                         <p class="card-text">{{ review.text }}</p>
@@ -57,38 +60,7 @@
                         
                         <p class="card-text"><small class="text-body-secondary">Created at: {{ review.created_at }}</small></p>
 
-                        {% if review.user.id == request.user.id %}
-
-                            <form action="{% url 'reviews:delete' %}" method="POST">
-                                {% csrf_token %}
-                                
-                                <input type="hidden" name="review_id" value="{{ review.id }}">
-
-                                <div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Review</h1>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                          Are you sure?
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                          <button type="submit" class="btn btn-danger">Delete!</button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteReviewModal">
-                                    Delete
-                                </button>
-                                
-                            </form>
-                        {% endif %}
-
+                        
                     </div>
                 </div>
             {% empty %}

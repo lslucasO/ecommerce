@@ -1,6 +1,10 @@
 {% extends 'global/base.html' %}
 
+{% block title %} {{ title }} {% endblock title %}
+
 {% block content %}
+
 {% include 'global/partials/messages.html' %}
-{% include 'global/partials/form.html' %}
+{% include 'users/partials/profile-view.html' %}
+
 {% endblock content %}

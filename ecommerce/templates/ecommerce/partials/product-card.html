@@ -7,7 +7,7 @@
           <div class="card border border-secondary-subtle h-100 mx-auto d-block" style="width: 20rem;" >
             <a href="{% url 'ecommerce:product' product.id %}"><img src="{{ product.cover.url }}" class="card-img-top" alt="..."></a>
             <div class="card-body">
-              <h5 class="card-title">{{ product.name }}</h5>
+              <h5 class="card-title">{{ product.name|truncatechars:70 }}</h5>
               <h6 style="font-size: 1.5rem;" class="card-price">R$ {{ product.price }} </h6>
               <button type="button" class="btn btn-success"><a class="link" href="{% url 'ecommerce:product' product.id %}">Visualize</a></button>
             </div>

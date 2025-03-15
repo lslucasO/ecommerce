@@ -1,0 +1,209 @@
+{% load crispy_forms_tags %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.min.css" integrity="sha512-LX0YV/MWBEn2dwXCYgQHrpa9HJkwB+S+bnBpifSOTO1No27TqNMKYoAn6ff2FBh03THAzAiiCwQ+aPX+/Qt/Ow==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<div class="container">
+<div class="row">
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-body pb-0">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <div class="text-center border-end">
+                            <img src="{{ user.account.profile_img.url }}" class="img-fluid avatar-xxl rounded-circle" alt="">
+                            <h4 style="padding-bottom: 1rem;" class="text-primary font-size-20 mt-3 mb-2">{{ user.username }}</h4>
+                        </div>
+                    </div><!-- end col -->
+                    <div class="col-md-9">
+                        <div class="ms-3">
+                            <div>
+                                <h4 class="card-title mb-2">About me</h4>
+                                <p class="mb-0 text-muted">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi deserunt dolore neque cumque, dolores perspiciatis voluptatibus ducimus quae iure et, ipsa ex impedit tempora accusamus consectetur veniam nobis cupiditate saepe!
+                                </p>
+                            </div>
+                            <div class="row my-4">
+                                
+                            </div><!-- end row -->
+                         
+                    
+                        </div>
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end card body -->
+        </div><!-- end card -->
+
+        <div class="card">
+            <div class="tab-content p-4">
+                <div class="tab-pane active show" id="projects-tab" role="tabpanel">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-1">
+                            <h4 class="card-title mb-4">Reviews</h4>
+                        </div>
+                    </div>
+
+                    <div class="row" id="all-projects">
+                        <div class="col-md-6" id="project-items-1">
+
+
+                            
+                            {% for review in reviews %}
+
+                                <!-- Modal de confirmação de exclusão -->
+                                <div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Review</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <form id="deleteReviewForm" action="{% url 'reviews:delete' %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="review_id" value="{{ review.id }}">  
+                                                    <button type="submit" class="btn btn-danger">Delete!</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Modal de confirmação de exclusão -->
+                                <div class="modal fade" id="editReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit your Review</h1>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <form method="POST" action="{% url 'reviews:edit' %}">
+                                            {% csrf_token %}
+                                  
+                                            <!-- Hidden input for product_id -->
+                                            <input type="hidden" name="review_id" value="{{ review.id }}">
+                                  
+                                            {{ form|crispy }}
+                                            
+                                            {% if form.errors %}
+                                              <div class="errors">
+                                                {{ form.errors }}
+                                              </div>
+                                            {% endif %}
+                                  
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                              <button type="submit" class="btn btn-primary">Edit</button>
+                                            </div>
+                                  
+                                          </form>
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex mb-3">
+                                            <div class="flex-grow-1 align-items-start">
+                                                <div>
+                                                    <h6 class="mb-0 text-muted">
+                                                        <i class="mdi mdi-circle-medium text-danger fs-3 align-middle"></i>
+                                                        <span class="team-date">{{ review.created_at }}</span>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                            {% if request.user.id == review.user.id %}
+                                                <div class="dropdown ms-2">
+                                                    <a href="#" class="dropdown-toggle font-size-16 text-muted" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-horizontal"></i>
+                                                    </a>
+
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a style="cursor: pointer;" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#editReviewModal">Edit</a>
+
+                                                        <a style="cursor: pointer;" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteReviewModal">Delete</a>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <h5 class="mb-1 font-size-17 team-title">{{ review.topic }}</h5>
+                                            <p class="text-muted mb-0 team-description">{{ review.text }}</p>
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class="avatar-group float-start flex-grow-1 task-assigne">
+                                                <div class="avatar-group-item">
+                                                    <a href="javascript: void(0);" class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" value="member-6" aria-label="Terrell Soto" data-bs-original-title="Terrell Soto">
+                                                        <img src={{ review.product.cover.url }} alt="" class="rounded-circle avatar-sm">
+                                                        <span style="padding-left: 0.5rem; ">
+                                                            <a style="text-decoration: none;" href={% url 'ecommerce:product' review.product.id %}>{{ review.product.name|truncatechars:30 }}</a>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div><!-- end avatar group -->
+                                            {% if review.rating >= 3 and review.rating <= 5 %}
+                                                <div class="align-self-end">
+                                                    <span class="badge bg-success p-2 team-status">{{ review.rating }}</span>
+                                                </div>
+                                            {% else %}
+                                                <div class="align-self-end">
+                                                    <span class="badge bg-danger p-2 team-status">{{ review.rating }}</span>
+                                                </div>
+                                            {% endif %}
+                                            
+                                        </div>
+                                    </div><!-- end cardbody -->
+                                </div><!-- end card -->
+                            {% endfor %}
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+                </div><!-- end tab pane -->
+
+                
+
+                
+            </div>
+        </div><!-- end card -->
+    </div><!-- end col -->
+
+    <div class="col-xl-4">
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <h4 class="card-title mb-4">Personal Details</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered mb-0">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Name</th>
+                                    <td>Jansh Wells</td>
+                                </tr><!-- end tr -->
+                                <tr>
+                                    <th scope="row">Location</th>
+                                    <td>California, United States</td>
+                                </tr><!-- end tr -->
+                                <tr>
+                                    <th scope="row">Language</th>
+                                    <td>English</td>
+                                </tr><!-- end tr -->
+                                <tr>
+                                    <th scope="row">Website</th>
+                                    <td>abc12@probic.com</td>
+                                </tr><!-- end tr -->
+                            </tbody><!-- end tbody -->
+                        </table><!-- end table -->
+                    </div>
+                </div>
+            </div><!-- end card body -->
+        </div><!-- end card -->
+
+        
+    </div><!-- end col -->
+</div>
+</div>
+

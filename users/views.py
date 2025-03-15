@@ -1,11 +1,14 @@
 from django.http import Http404
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from reviews.forms.review_form import ReviewForm
+from reviews.models import Review
 from users.forms import LoginForm, RegisterForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.contrib.auth.models import User
 
 from users.models import Account
 
@@ -92,3 +95,36 @@ def logout_view(request):
         messages.error(request, 'You are not logged in')
     
     return redirect(reverse('ecommerce:home'))
+
+
+@login_required(login_url='users:login', redirect_field_name='next')
+def dashboard(request):
+    
+    return render(request, 'users/pages/dashboard.html', {
+        'title': 'Dashboard'
+    })
+    
+
+@login_required(login_url='users:login', redirect_field_name='next')
+def profile(request, id):
+    reviews = Review.objects.filter(
+        user=id
+    )
+    
+    # review_user_id = request.GET.get('review_user_id')
+    # print(review_user_id)
+    
+    user = get_object_or_404(
+        User,
+        pk=id
+    )
+    
+    form = ReviewForm()
+    
+
+    return render(request, 'users/pages/profile.html', {
+        'title': 'Profile',
+        'reviews': reviews,
+        'form': form,
+        'user': user,
+    })
