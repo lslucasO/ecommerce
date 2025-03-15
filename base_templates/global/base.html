@@ -8,9 +8,10 @@
 </head>
 <body>
     {% include 'global/partials/header.html' %}
+    {% include 'global/partials/messages.html' %}
     {% include 'global/partials/modal.html' %}
     
-    {% if title not in 'Dashboard' %}
+    {% if 'Dashboard' not in title %}
         {% include 'global/partials/search.html' %}
     {% endif %}
 

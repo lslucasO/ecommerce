@@ -1,4 +1,5 @@
 {% include 'dashboard/partials/dashboard-navbar.html' %}
+
   <div class="col">
     <div class="e-tabs mb-3 px-3">
       <ul class="nav nav-tabs">
@@ -26,15 +27,16 @@
                         </div>
                       </th>
                       <th>Photo</th>
-                      <th class="max-width">Name</th>
-                      <th class="max-width">Category</th>
+                      <th class="max-width">User</th>
+                      <th class="sortable">Product</th>
                       <th class="sortable">Created at</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
-                  <!-- Products table -->
+                  <!-- Reviews table -->
                   <tbody>
-                    {% for product in products %}
+                    {% for review in reviews %}
+
                       <tr>
                         <td class="align-middle">
                           <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
@@ -44,34 +46,28 @@
                         </td>
                         <td class="align-middle text-center">
                         
-                            <img style="max-width: 40px; " src="{{ product.cover.url }}" alt="">
+                            <img style="max-width: 40px; " src="{{ review.user.account.profile_img.url }}" alt="">
 
                         </td>
                         <td class="text-nowrap align-middle">
-                          <a style="text-decoration: none;" href="{% url 'ecommerce:product' product.id %}">{{ product.name|truncatechars:30 }}</a>
-                        </td>
-                        <td class="text-nowrap align-middle"><span>
-                          {{ product.category }}
-                        </span></td>
-
-                        <td class="text-nowrap align-middle"><span>
-                          {{ product.created_at|date:"d/m/Y" }}
-                        </span></td>
+                          <a style="text-decoration: none;" href="">{{ review.user.username }}</a>
                        
+                        </td>
+                        <td class="text-nowrap align-middle"><span>{{ review.product.name|truncatechars:40 }}</span></td>
 
+                        <td class="text-nowrap align-middle"><span>{{ review.created_at|date:"d/m/Y" }}</span></td>
+
+                       
                         <td class="text-center align-middle">
                           <div class="btn-group align-top">
-                              <input type="hidden" name="product_id">
-                              <button class="btn btn-sm btn-outline-secondary badge" type="button" data-toggle="modal" ]
-                              data-target="#user-form-modal"><a href="{% url 'dashboard:edit_view' product.id %}">Edit</a></button>
+                              <button class="btn btn-sm btn-outline-secondary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
                               <button class="btn btn-sm btn-outline-secondary badge" type="button"><i class="fa fa-trash"></i></button>
-
                           </div>
                         </td>
                       </tr>
                     {% endfor %}
                   </tbody>
-                  <!-- Products table -->
+                  <!-- End Reviews table -->
                 </table>
               </div>
               <div class="d-flex justify-content-center">
