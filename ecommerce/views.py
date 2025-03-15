@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
+from django.urls import reverse
 from .models import Product
 from reviews.models import Review
 from reviews.forms import ReviewForm
@@ -42,11 +43,21 @@ def product(request, id):
         product=product
     ).order_by('-id')
     
+    # Simple Modal Creation
+    modal = {
+        'id': 'cartModal',
+        'title': 'Added succesfully ✅',
+        'text': 'This product was added to your cart.',
+        'button_next': 'Go to cart',
+        'url': reverse('cart:cart'),
+    }
+
     return render(request, 'ecommerce/pages/product.html', {
         'title': f'{product.name}',
         'product': product,
         'reviews': reviews,
-        'form': form
+        'form': form,
+        'modal': modal
     })
 
 

@@ -120,7 +120,7 @@ def profile(request, id):
     )
     
     form = ReviewForm()
-    
+
 
     return render(request, 'users/pages/profile.html', {
         'title': 'Profile',

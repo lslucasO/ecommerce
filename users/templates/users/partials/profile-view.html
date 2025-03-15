@@ -1,4 +1,4 @@
-{% load crispy_forms_tags %}
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.min.css" integrity="sha512-LX0YV/MWBEn2dwXCYgQHrpa9HJkwB+S+bnBpifSOTO1No27TqNMKYoAn6ff2FBh03THAzAiiCwQ+aPX+/Qt/Ow==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="container">
 <div class="row">
@@ -46,63 +46,12 @@
                             {% for review in reviews %}
 
                                 <!-- Modal de confirmação de exclusão -->
-                                <div class="modal fade" id="deleteReviewModal{{ review.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Review</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Are you sure?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <form id="deleteReviewForm{{ review.id }}" action="{% url 'reviews:delete' %}" method="POST">
-                                                    {% csrf_token %}
-                                                  
-                                                    <input type="hidden" name="review_id" value="{{ review.id }}">  
-                                                    <button type="submit" class="btn btn-danger">Delete!</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
+                                {% include 'users/partials/modal-delete-review.html' %}
+
                                 <!-- Modal de confirmação de edição -->
-                                <div class="modal fade" id="editReviewModal{{ review.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit your Review</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                        <form method="POST" action="{% url 'reviews:edit' %}">
-                                            {% csrf_token %}
-                                    
-                                            <!-- Hidden input for review_id -->
-                                            <input type="hidden" name="review_id" value="{{ review.id }}">
-                                
-                                            {{ form|crispy }}
-                                            
-                                            {% if form.errors %}
-                                            <div class="errors">
-                                                {{ form.errors }}
-                                            </div>
-                                            {% endif %}
-                                
-                                            <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Edit</button>
-                                            </div>
-                                
-                                        </form>
-                                        </div>
-                                        
-                                    </div>
-                                    </div>
-                                </div>
+                                {% include 'users/partials/modal-edit-review.html' %}
+
+                               
 
                                 <div class="card">
                                     <div class="card-body">
