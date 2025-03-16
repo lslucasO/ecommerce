@@ -56,6 +56,7 @@ def dashboard_product_edit_view(request, id):
         'form': form,
         'form_action': reverse('dashboard:edit_create', args=[product.id])
     })
+    
 
     
 @login_required(login_url='users:login', redirect_field_name='next')
@@ -72,8 +73,13 @@ def dashboard_product_edit_create(request, id):
     
     form = ProductForm(request.POST, instance=product)
 
+    print(f"ID do produto antes de salvar: {product.id}")  # Verifique o ID antes de salvar
+    
     if form.is_valid():
-        form.save()
+        product = form.save(commit=False)
+        product.save()
+        
+        print(f"ID do produto após salvar: {product.id}")  # Verifique o ID após salvar
         
         messages.success(request, 'Your product was edited with success.')
     else:
