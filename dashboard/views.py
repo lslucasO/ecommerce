@@ -54,10 +54,9 @@ def dashboard_product_edit_view(request, id):
     return render(request, 'dashboard/pages/dashboard-product-edit.html', {
         'title': 'Dashboard | Edit Product',
         'form': form,
-        'form_action': reverse('dashboard:edit_create', args=[product.id])
+        'form_action': reverse('dashboard:product_edit_create', args=[product.id])
     })
     
-
     
 @login_required(login_url='users:login', redirect_field_name='next')
 def dashboard_product_edit_create(request, id):
@@ -68,18 +67,41 @@ def dashboard_product_edit_create(request, id):
     product = get_object_or_404(
         Product,
         pk=id,
-        stock=True
     )
     
     form = ProductForm(request.POST, instance=product)
 
-    print(f"ID do produto antes de salvar: {product.id}")  # Verifique o ID antes de salvar
     
     if form.is_valid():
-        product = form.save(commit=False)
-        product.save()
+        form.save()
         
-        print(f"ID do produto após salvar: {product.id}")  # Verifique o ID após salvar
+        messages.success(request, 'Your product was edited with success.')
+    else:
+        messages.error(request, 'Something went wrong')
+    
+    return redirect(reverse('dashboard:products'))
+
+
+@login_required(login_url='users:login', redirect_field_name='next')
+def dashboard_product_create_view(request):
+    form = ProductForm()
+    
+    return render(request, 'dashboard/pages/dashboard-product-create-view.html', {
+        'title': 'Dashboard | New Product',
+        'form': form,
+        'form_action': reverse('dashboard:product_create_submit')
+    })
+    
+    
+@login_required(login_url='users:login', redirect_field_name='next')
+def dashboard_product_create_submit(request):
+    if not request.POST:
+        raise Http404()
+    
+    form = ProductForm(request.POST, request.FILES)
+    
+    if form.is_valid():
+        form.save()
         
         messages.success(request, 'Your product was edited with success.')
     else:

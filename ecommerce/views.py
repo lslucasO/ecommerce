@@ -34,7 +34,8 @@ def search(request):
 def product(request, id):
     form = ReviewForm()
     
-    product = Product.objects.get(
+    product = get_object_or_404(
+        Product,
         pk=id,
         stock=True
     )
