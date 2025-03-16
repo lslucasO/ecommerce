@@ -33,8 +33,15 @@
                     </tr>
                   </thead>
                   <!-- Products table -->
+
+                  
+
                   <tbody>
                     {% for product in products %}
+
+                      <!-- Modal de confirmação de exclusão -->
+                      {% include 'dashboard/partials/modal-delete-product.html' %}
+
                       <tr>
                         <td class="align-middle">
                           <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
@@ -62,9 +69,10 @@
                         <td class="text-center align-middle">
                           <div class="btn-group align-top">
                               <input type="hidden" name="product_id">
-                              <button class="btn btn-sm btn-outline-secondary badge" type="button" data-toggle="modal" ]
+                              <button class="btn btn-sm btn-outline-secondary badge" type="button" data-toggle="modal" 
                               data-target="#user-form-modal"><a href="{% url 'dashboard:product_edit_view' product.id %}">Edit</a></button>
-                              <button class="btn btn-sm btn-outline-secondary badge" type="button"><i class="fa fa-trash"></i></button>
+                              <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#deleteProductModal{{ product.id }}">Delete</button>
+                              {% comment %} <a style="cursor: pointer;" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteProductModal{{ product.id }}">Delete</a> {% endcomment %}
 
                           </div>
                         </td>

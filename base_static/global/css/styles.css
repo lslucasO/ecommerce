@@ -99,6 +99,8 @@ nav{
     margin-bottom: 2rem;
 }   
 
+
+
 .input-group{
     padding-top: 2rem;
     padding-bottom: 1rem;
@@ -154,4 +156,3 @@ nav{
 .g-5, .gx-5 {
    --bs-gutter-x: 1rem; 
 }
-

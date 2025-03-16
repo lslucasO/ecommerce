@@ -1,27 +1,29 @@
 {% load crispy_forms_tags %}
 
+
 <div class="container">
-    <form enctype="multipart/form-data" class="mx-auto d-block" style="max-width: 800px; padding-top: 1rem;" action="{{ form_action }}" method="POST" >
-      {% csrf_token %}
-
-      <div class="card">
-        <h5 class="card-header">{{ title }}</h5>
-        <div class="card-body">
-          {{form|crispy}}
-        </div>
-
-        {% if form.errors %}
-          <div class="errors">
-            {{ form.errors }}
-          </div>
-        {% endif %}
-
-        <div style="padding-bottom: 1rem; padding-left: 1rem;">
-          <button type="submit" style="width: 5rem;" class="btn btn-primary"><a class="link">Submit</a></button>
-        </div>
-
+  <form enctype="multipart/form-data" class="mx-auto d-block" style="max-width: 800px; padding-top: 1rem;" action="{{ form_action }}" method="POST" >
+    {% csrf_token %}
+  
+    <div class="card">
+      <h5 class="card-header">{{ title }}</h5>
+      <div class="card-body">
+        {{form|crispy}}
       </div>
-
-    </form>
+  
+      {% if form.errors %}
+        <div class="errors">
+          {{ form.errors }}
+        </div>
+      {% endif %}
+  
+      <div style="padding-bottom: 1rem; padding-left: 1rem;">
+        <button type="submit" style="width: 5rem;" class="btn btn-primary"><a class="link">Submit</a></button>
+      </div>
+  
+    </div>
+  
+  </form>
+  
 </div>
 

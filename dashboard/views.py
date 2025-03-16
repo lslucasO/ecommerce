@@ -108,3 +108,22 @@ def dashboard_product_create_submit(request):
         messages.error(request, 'Something went wrong')
     
     return redirect(reverse('dashboard:products'))
+
+
+@login_required(login_url='users:login', redirect_field_name='next')
+def dashboard_product_delete(request):
+    if not request.POST:
+        raise Http404()
+    
+    product_id = request.POST.get('product_id')
+    
+    product = get_object_or_404(
+        Product,
+        pk=product_id
+    )
+    
+    product.delete()
+    
+    messages.success(request, 'Your product was deleted with success.')
+    
+    return redirect(reverse('dashboard:products'))
