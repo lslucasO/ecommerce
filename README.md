@@ -70,5 +70,5 @@ Este projeto está sob a licença MIT. Sinta-se livre para modificá-lo e utiliz
 
 ---
 
-![Home](file:///C:/Users/lslem/Videos/Desktop/Desktop%20Screenshot%202025.03.16%20-%2022.53.04.58.png)
+![Home]([file:///C:/Users/lslem/Videos/Desktop/Desktop%20Screenshot%202025.03.16%20-%2022.53.04.58.png](https://prnt.sc/gF_o5uzZmg9A))
 
