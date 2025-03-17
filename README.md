@@ -73,9 +73,19 @@ Este projeto está sob a licença MIT. Sinta-se livre para modificá-lo e utiliz
 ## Home
 ![Home](https://github.com/user-attachments/assets/0c90e073-2bb9-4b93-a98e-995386478705)
 
-
 ## Avaliações
 ![Avaliações](https://github.com/user-attachments/assets/f80c62c1-8367-40dd-83a6-58cf497ece51)
 
+## Navbar
+![Screenshot_14](https://github.com/user-attachments/assets/ebfc9fc7-0d42-40b9-a725-c00947d943ac)
+
+## Carrinho
+![Screenshot_15](https://github.com/user-attachments/assets/0ff28c5f-2f9d-4aa7-b88d-25d0305be4cb)
+
+## Perfil
+![Screenshot_16](https://github.com/user-attachments/assets/3e3d4f32-c5ff-458f-98c5-f33027c52d99)
+
+## Dashboard
+![Screenshot_17](https://github.com/user-attachments/assets/5c600c36-5372-4e4e-9f55-b84db069c0b3)
 
 
