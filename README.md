@@ -70,5 +70,4 @@ Este projeto está sob a licença MIT. Sinta-se livre para modificá-lo e utiliz
 
 ---
 
-Qualquer dúvida ou sugestão, sinta-se à vontade para abrir uma issue ou contribuir com melhorias! 🚀
 
