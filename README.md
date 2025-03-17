@@ -24,4 +24,4 @@ Este é um projeto de **e-commerce responsivo** desenvolvido com **Django** e **
 - **Banco de Dados:** SQLite (ou configurável para PostgreSQL/MySQL)  
 
 
-/ecommerce-django │── /static/ # Arquivos estáticos (CSS, JS, imagens) │── /templates/ # Templates HTML do Django │── /ecommerce/ # Aplicação principal do Django │── /products/ # Aplicação para gerenciamento de produtos │── /users/ # Aplicação para gerenciamento de usuários │── /cart/ # Aplicação para o sistema de carrinho │── /reviews/ # Aplicação para avaliações de produtos │── /admin/ # Configurações do painel administrativo │── db.sqlite3 # Banco de dados SQLite │── manage.py # Script de gerenciamento do Django │── requirements.txt # Dependências do projeto │── README.md # Documentação do projeto │── .gitignore # Arquivos ignorados pelo Git
+/ecommerce-django │── /static/ # Arquivos estáticos (CSS, JS, imagens) │── /templates/ # Templates HTML do Django │── /ecommerce/ # Aplicação principal do Django │── /products/ # Aplicação para gerenciamento de produtos │── /users/ # Aplicação
