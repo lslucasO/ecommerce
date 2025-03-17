@@ -70,5 +70,7 @@ Este projeto está sob a licença MIT. Sinta-se livre para modificá-lo e utiliz
 
 ---
 
-![Home](https://prnt.sc/gF_o5uzZmg9A)
+![Home](https://github.com/user-attachments/assets/25cb880b-46e0-44b2-a780-d03fdae31dfd)
+
+
 
