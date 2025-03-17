@@ -1,7 +1,6 @@
 from django import forms
 from ecommerce.models import Product
 
-
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
@@ -11,6 +10,5 @@ class ProductForm(forms.ModelForm):
             'description',
             'stock',   
             'cover',
-            'category'             
+            'category'          
         ]
-    
